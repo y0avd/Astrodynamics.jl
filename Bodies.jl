@@ -7,6 +7,7 @@ function CreatePlanet(planetKey::Int)
     Planet = Dict()
 
     if planetKey >=0 && planetKey <= 8
+
         Planet[]
     end
 
