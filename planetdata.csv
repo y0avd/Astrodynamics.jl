@@ -1,8 +1,7 @@
 	Sun	Mercury	Venus	Earth	Mars	Jupiter	Saturn	Uranus	Neptune
-gravitional parameter [km^3/s^2]									
-equatorial radius [km]									
-J2 perturbation constant									
-angular rotation [rad/s]									
-semi-major axis of heliocentric orbit [km]									
-eccentricity of heliocentric orbit [km]									
-inclination to J2000 [km]									
+gravitional parameter [km^3/s^2]	132712440041.279419	22031.86855	324858.592	398600.4355	42828.37582	126712764.1	37940584.84	5794556.4	6836527.101
+equatorial radius [km]	"695,700"	2440.5	6051.8	6378.137	3396.2				
+J2 perturbation constant	0	0.0000503	0.000004458	0.001082635	0.00196045				
+semi-major axis of heliocentric orbit [au]	0	0.38709893	0.72333199	1.00000	1.52366231				
+eccentricity of heliocentric orbit 	0	0.20563069	0.00677323	0.1671022	0.09341233				
+inclination to J2000 [rad]	0	0.122258045	0.059248867	0.00005	0.032299238				
