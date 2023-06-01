@@ -1,7 +1,7 @@
 # This file holds functions and data for useful celestial bodies in our solar system
-# Pulls from planetdata.csv for all planetary data, from NASA fact sheets 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/'
+# data from NASA fact sheets 'https://nssdc.gsfc.nasa.gov/planetary/factsheet/'
 
-struct Planet
+struct Body
     μ::Float64 # gravitional parameter [km^3/s^2]
     R::Float64 # equatorial radius [km]
     J₂::Float64 # J2 perturbation constant
@@ -11,21 +11,12 @@ struct Planet
 end
 
 # note 6 constants in a planet struct
-
-function CreatePlanet(planetKey::Int)
-    # using planetdata.csv, we can build a dictionary containing useful planetary constants
-    # planetKey is an integer from 0-8 corresponding to the Sun plus the 8 planets
-    data::Vector{Float64} = []
-
-    if planetKey >=0 && planetKey <= 8
-        for idx in 1:6
-            push!(data,10.0)
-        end
-    end
-
-    return Planet(data[1],data[2],data[3],data[4],data[5],data[6])
-end
-
-p = CreatePlanet(1)
-
-print(p)
+const sun = Planet(132712440041.279419, 695700, 0, 0, 0, 0)
+const mercury = Planet(22031.86855, 2440.5, 0.0000503, )
+const venus = Planet(324858.592, 6051.8, 0.000004458, )
+const earth = Planet(398600.4355, 6378.137, 0.001082635, )
+const mars = Planet(42828.37582, 3396.2, 0.00196045, )
+const jupiter = Planet(126712764.1, 71492, 0.014736, )
+const saturn = Planet(37940584.84, 60268, 0.016298, )
+const uranus = Planet(5794556.4, 25558, 0.00334343, )
+const nepture = Planet(6836527.101, 24764, 0.003411, )
