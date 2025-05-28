@@ -1,11 +1,12 @@
 module Astrodynamics
 
-using SPICE
+using SPICE, Makie, LinearAlgebra
 
 # Include other source files
 include("Constants.jl")
 include("SpiceUtils.jl")
 include("CelestialObjects.jl")
+include("GraphingUtils.jl")
 
 # Export functions
 export create_solar_system_sun, create_solar_system

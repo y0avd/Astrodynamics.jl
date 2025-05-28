@@ -5,12 +5,32 @@ A Julia package for astrodynamics calculations using SPICE kernels. This package
 - Orbital elements computation
 - Solar system body information
 - Easy access to cached celestial objects
+- Interactive 3D visualization of celestial objects and orbits
 
 ## Installation
 
 ```julia
 using Pkg
 Pkg.add(url="https://github.com/y0avd/Astrodynamics.jl")
+```
+
+### Visualization Backend
+
+This package uses Makie.jl for visualization. You'll need to install one of the Makie backends:
+
+```julia
+# Choose one of the following:
+Pkg.add("GLMakie")    # OpenGL-based interactive backend (recommended for desktop)
+Pkg.add("CairoMakie") # Cairo-based static vector graphics
+Pkg.add("WGLMakie")   # WebGL-based, displays plots in the browser
+Pkg.add("RPRMakie")   # Experimental ray-tracing backend
+```
+
+Then, in your code, import the desired backend:
+
+```julia
+using GLMakie   # or any other backend
+using Astrodynamics
 ```
 
 ## SPICE Kernels Setup
@@ -72,6 +92,7 @@ load_spice_kernels(kernel_dir)
 ### Basic Setup and Solar System Creation
 
 ```julia
+using GLMakie  # Choose your preferred Makie backend
 using Astrodynamics
 
 # First, load the SPICE kernels
@@ -147,7 +168,15 @@ Each `CelestialObject` includes:
 - Memory efficient (no duplicate objects)
 
 ## Dependencies
-- SPICE.jl: Interface to NASA's SPICE toolkit
+
+This package requires the following Julia packages:
+
+- **SPICE.jl**: Interface to NASA's SPICE toolkit for spacecraft navigation and planetary science
+- **Makie.jl**: High-performance interactive visualization package for scientific data and 3D graphics
+  - *Note*: You'll need to install one of the Makie backends (GLMakie, CairoMakie, WGLMakie, or RPRMakie)
+- **LinearAlgebra**: Standard library for linear algebra operations (vectors, matrices, etc.)
+
+For more information about Makie backends, see the [Makie documentation](https://docs.makie.org/stable/).
 
 ## License
 MIT License 
