@@ -97,10 +97,16 @@ function create_solar_system(frame = "J2000", et = 0.0)
     return CELESTIAL_OBJECTS
 end
 
-function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
+function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0; update_existing = false)
     # Check if object already exists
     if haskey(CELESTIAL_OBJECTS, name)
-        return CELESTIAL_OBJECTS[name]
+        if update_existing
+            @info "Updating existing celestial object: $name"
+            # Continue to recreate the object with new parameters
+        else
+            @info "Returning existing celestial object: $name"
+            return CELESTIAL_OBJECTS[name]
+        end
     end
     
     # Get body properties
