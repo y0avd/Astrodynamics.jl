@@ -4,6 +4,9 @@ using SPICE
 const au = 149597870.7 # astronomical unit [km]
 const yr = 365.24219 # sidereal year [days]
 
+# Global dictionary to store all celestial objects
+const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
+
 """
 Load all SPICE kernels from the specified directory.
 This should be called by the user's project after adding required kernels.
@@ -55,15 +58,38 @@ mutable struct CelestialObject
     T::Float64      # Orbital period (0 if not elliptical)
 end
 
-if !@isdefined(SolarSystem_Sun)
-    sun_μ = bodvrd("sun", "GM")[1]
-    sun_Rv = bodvrd("sun", "RADII")
-    sun_R = sum(sun_Rv) / 3
-    const SolarSystem_Sun = CelestialObject("sun", nothing, 0.0, sun_μ, sun_Rv, sun_R, 
-                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+function create_solar_system_sun()
+    if !haskey(CELESTIAL_OBJECTS, "sun")
+        sun_μ = bodvrd("sun", "GM")[1]
+        sun_Rv = bodvrd("sun", "RADII")
+        sun_R = sum(sun_Rv) / 3
+        CELESTIAL_OBJECTS["sun"] = CelestialObject("sun", nothing, 0.0, sun_μ, sun_Rv, sun_R, 
+                                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+    end
+    return CELESTIAL_OBJECTS["sun"]
+end
+
+function create_solar_system(frame = "J2000", et = 0.0)
+    sun = create_solar_system_sun()
+    
+    planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
+    for planet in planets
+        if !haskey(CELESTIAL_OBJECTS, planet)
+            @info "Creating celestial object for $planet..."
+            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet * "_barycenter", sun, frame, et)
+        end
+    end
+    
+    return CELESTIAL_OBJECTS
 end
 
 function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
+    # Check if object already exists
+    base_name = replace(name, "_barycenter" => "")
+    if haskey(CELESTIAL_OBJECTS, base_name)
+        return CELESTIAL_OBJECTS[base_name]
+    end
+    
     # Get body properties
     μ = bodvrd(name, "GM")[1]
     Rv = bodvrd(name, "RADII")
@@ -73,10 +99,21 @@ function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
     state = spkezr(name, et, frame, "NONE", primary_body.name)
     orb = oscltx(state[1], et, primary_body.μ)
     
-    return CelestialObject(
-        name, primary_body, et, # Object identification
+    # Create the object
+    obj = CelestialObject(
+        base_name, primary_body, et, # Object identification
         μ, Rv, R,               # Body properties
         orb[1:6]...,            # Orbital elements
         orb[9:11]...            # Orbital elements
     )
+    
+    # Store in global dictionary
+    CELESTIAL_OBJECTS[base_name] = obj
+    return obj
 end
+
+# Create the sun constant for backward compatibility
+const SolarSystem_Sun = create_solar_system_sun()
+
+# Export the celestial objects dictionary
+export CELESTIAL_OBJECTS
