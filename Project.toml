@@ -11,4 +11,4 @@ SPICE = "5bab7191-041a-5c2e-a744-024b9c3a5062"
 
 [compat]
 julia = "1.6"
-SPICE = "v0.2.4" 
+SPICE = "0.2.4" 
