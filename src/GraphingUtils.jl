@@ -39,5 +39,5 @@ function create_axis3(fig, x=1, y=1)
 end
 
 function graph_celestial_object(ax, o::CelestialObject, c=(0,0,0); sphere = true, img = :blue)
-    mesh!(ax, create_ellipsoid(c, sphere ? o.R : o.Rv)..., color = img)
+    surface!(ax, create_ellipsoid(c, sphere ? o.R : o.Rv)..., color = img)
 end
