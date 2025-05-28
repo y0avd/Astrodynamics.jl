@@ -10,7 +10,7 @@ A Julia package for astrodynamics calculations using SPICE kernels. This package
 
 ```julia
 using Pkg
-Pkg.add("Astrodynamics")
+Pkg.add(url="https://github.com/y0avd/Astrodynamics.jl")
 ```
 
 ## SPICE Kernels Setup
