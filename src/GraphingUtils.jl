@@ -1,5 +1,5 @@
 # Export functions
-export create_ellipsoid
+export create_ellipsoid, create_axis3, graph_celestial_object
 
 function create_ellipsoid(center, R; n = 100)
     # Handle R input - can be either a single float or any array with 3 elements
