@@ -17,14 +17,10 @@ function create_ellipsoid(center, R; n = 100)
     θ = range(0, π, length=n)      # polar angle (0 to π)
     ϕ = range(0, 2π, length=n)     # azimuthal angle (0 to 2π)
     
-    # Create meshgrid for proper 3D surface
-    θ_grid = repeat(θ, 1, n)
-    ϕ_grid = repeat(ϕ', n, 1)
-    
     # Generate ellipsoid coordinates
-    x = center[1] .+ Rv[1] * sin.(θ_grid) .* cos.(ϕ_grid)
-    y = center[2] .+ Rv[2] * sin.(θ_grid) .* sin.(ϕ_grid)
-    z = center[3] .+ Rv[3] * cos.(θ_grid)
+    x = center[1] .+ Rv[1] * sin.(θ) .* cos.(ϕ)
+    y = center[2] .+ Rv[2] * sin.(θ) .* sin.(ϕ)
+    z = center[3] .+ Rv[3] * cos.(θ)
     
     return x, y, z
 end
