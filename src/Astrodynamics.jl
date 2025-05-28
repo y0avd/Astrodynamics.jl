@@ -114,14 +114,14 @@ function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
     
     # Create the object
     obj = CelestialObject(
-        base_name, primary_body, et, # Object identification
-        μ, Rv, R,                    # Body properties
-        orb[1:6]...,                 # Orbital elements
+        name, primary_body, et, # Object identification
+        μ, Rv, R,               # Body properties
+        orb[1:6]...,            # Orbital elements
         orb[9:11]...
     )
     
     # Store in global dictionary
-    CELESTIAL_OBJECTS[base_name] = obj
+    CELESTIAL_OBJECTS[name] = obj
     return obj
 end
 
