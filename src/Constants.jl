@@ -112,8 +112,5 @@ function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
     return obj
 end
 
-# Create the sun constant for backward compatibility
-const SolarSystem_Sun = create_solar_system_sun()
-
 # Export the celestial objects dictionary
 export CELESTIAL_OBJECTS
