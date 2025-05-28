@@ -90,7 +90,7 @@ function create_solar_system(frame = "J2000", et = 0.0)
     for planet in planets
         if !haskey(CELESTIAL_OBJECTS, planet)
             @info "Creating celestial object for $planet..."
-            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet * "_barycenter", sun, frame, et)
+            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet, sun, frame, et)
         end
     end
     
@@ -99,9 +99,8 @@ end
 
 function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
     # Check if object already exists
-    base_name = replace(name, "_barycenter" => "")
-    if haskey(CELESTIAL_OBJECTS, base_name)
-        return CELESTIAL_OBJECTS[base_name]
+    if haskey(CELESTIAL_OBJECTS, name)
+        return CELESTIAL_OBJECTS[name]
     end
     
     # Get body properties
@@ -116,9 +115,9 @@ function create_celestial_object(name, primary_body, frame = "J2000", et = 0.0)
     # Create the object
     obj = CelestialObject(
         base_name, primary_body, et, # Object identification
-        μ, Rv, R,               # Body properties
-        orb[1:6]...,            # Orbital elements
-        orb[9:11]...            # Orbital elements
+        μ, Rv, R,                    # Body properties
+        orb[1:6]...,                 # Orbital elements
+        orb[9:11]...
     )
     
     # Store in global dictionary
