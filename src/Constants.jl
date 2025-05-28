@@ -1,5 +1,7 @@
 using SPICE
 
+export utc2et, et2utc, spkezr, oscltx, bodvrd, furnsh # Useful SPICE functions
+
 mutable struct CelestialObject
     # Object identification
     name::String
