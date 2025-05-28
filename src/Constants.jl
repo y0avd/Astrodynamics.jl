@@ -1,5 +1,28 @@
 using SPICE
 
+mutable struct CelestialObject
+    # Object identification
+    name::String
+    primary_body::Union{Nothing, CelestialObject}
+    et::Float64
+    
+    # Body properties
+    μ::Float64      # gravitional parameter [km^3/s^2]
+    Rv::Vector{Float64} # vector of radii [km]
+    R::Float64      # average equatorial radius [km]
+    
+    # Orbital elements
+    rp::Float64     # Perifocal distance
+    ecc::Float64    # Eccentricity
+    i::Float64      # Inclination [rad]
+    Ω::Float64      # Longitude of ascending node [rad]
+    ω::Float64      # Argument of periapsis [rad]
+    M0::Float64     # Mean anomaly at epoch
+    ν::Float64      # True anomaly at epoch
+    a::Float64      # Semi-major axis (0 if not computable)
+    T::Float64      # Orbital period (0 if not elliptical)
+end
+
 # Initializes useful astrodynamic constants as global variables
 const au = 149597870.7 # astronomical unit [km]
 const yr = 365.24219 # sidereal year [days]
@@ -33,29 +56,6 @@ function load_spice_kernels(kernel_dir=joinpath(pwd(), "kernels"))
     if !loaded
         error("No SPICE kernel files found in $kernel_dir. Kernel files should have extensions: $(join(kernel_extensions, ", "))")
     end
-end
-
-mutable struct CelestialObject
-    # Object identification
-    name::String
-    primary_body::Union{Nothing, CelestialObject}
-    et::Float64
-    
-    # Body properties
-    μ::Float64      # gravitional parameter [km^3/s^2]
-    Rv::Vector{Float64} # vector of radii [km]
-    R::Float64      # average equatorial radius [km]
-    
-    # Orbital elements
-    rp::Float64     # Perifocal distance
-    ecc::Float64    # Eccentricity
-    i::Float64      # Inclination [rad]
-    Ω::Float64      # Longitude of ascending node [rad]
-    ω::Float64      # Argument of periapsis [rad]
-    M0::Float64     # Mean anomaly at epoch
-    ν::Float64      # True anomaly at epoch
-    a::Float64      # Semi-major axis (0 if not computable)
-    T::Float64      # Orbital period (0 if not elliptical)
 end
 
 function create_solar_system_sun()
