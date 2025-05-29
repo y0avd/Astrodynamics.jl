@@ -12,15 +12,13 @@ function create_ellipsoid(center, R; n = 100)
     else
         error("R must be either a single number or an array with exactly 3 elements representing radii [rx, ry, rz]")
     end
-    
-    # Create spherical coordinate grids
-    θ = range(0, π, length=n)      # polar angle (0 to π)
-    ϕ = range(0, 2π, length=n)     # azimuthal angle (0 to 2π)
-    
+  
     # Generate ellipsoid coordinates
-    x = center[1] .+ Rv[1] * sin.(θ) .* cos.(ϕ)
-    y = center[2] .+ Rv[2] * sin.(θ) .* sin.(ϕ)
-    z = center[3] .+ Rv[3] * cos.(θ)
+    θ = LinRange(0, π, n)
+    ϕ = LinRange(0, 2π, 2 * n)
+    x = [center[1] + Rv[1] * cos(ϕ) * sin(θ) for θ in θ, ϕ in ϕ]
+    y = [center[2] + Rv[2] * sin(ϕ) * sin(θ) for θ in θ, ϕ in ϕ]
+    z = [center[3] + Rv[3] * cos(θ) for θ in θ, ϕ in ϕ]
     
     return x, y, z
 end
