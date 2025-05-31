@@ -28,8 +28,8 @@ function format_axis3(ax)
     ax.ylabel = "y [km]"
     ax.zlabel = "z [km]"
     ax.aspect = :data
-    ax.camera.elevation = pi/4
-    ax.camera.azimuth = pi/4
+    ax.elevation = pi/4
+    ax.azimuth = pi/4
 end
 
 function graph_celestial_object(ax, o::CelestialObject, c=(0,0,0); sphere = true, img = :blue, n = 100)
