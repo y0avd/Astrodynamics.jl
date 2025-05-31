@@ -1,5 +1,5 @@
 # Export functions
-export create_ellipsoid, create_axis3, graph_celestial_object
+export create_ellipsoid, format_axis3, graph_celestial_object
 
 function create_ellipsoid(center, R; n = 100)
     # Handle R input - can be either a single float or any array with 3 elements
@@ -23,19 +23,15 @@ function create_ellipsoid(center, R; n = 100)
     return x, y, z
 end
 
-function create_axis3(fig, x=1, y=1)
-    ax = Axis3(
-        fig[x,y],
-        title = "Earth Plot",
-        xlabel = "x [km]",
-        ylabel = "y [km]",
-        zlabel = "z [km]",
-        aspect = :data,
-        azimuth = pi/4,
-        elevation = pi/4
-    );
+function format_axis3(ax)
+    ax.xlabel = "x [km]"
+    ax.ylabel = "y [km]"
+    ax.zlabel = "z [km]"
+    ax.aspect = :data
+    ax.camera.elevation = pi/4
+    ax.camera.azimuth = pi/4
 end
 
-function graph_celestial_object(ax, o::CelestialObject, c=(0,0,0); sphere = true, img = :blue)
-    surface!(ax, create_ellipsoid(c, sphere ? o.R : o.Rv)..., color = img)
+function graph_celestial_object(ax, o::CelestialObject, c=(0,0,0); sphere = true, img = :blue, n = 100)
+    surface!(ax, create_ellipsoid(c, sphere ? o.R : o.Rv, n = n)..., color = img, shading = NoShading, backlight = 1.5f0)
 end
