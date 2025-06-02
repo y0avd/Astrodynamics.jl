@@ -2,7 +2,7 @@
 export CelestialObject
 
 # Export functions
-export create_celestial_object
+export create_celestial_object, get_distance, get_rotation
 
 # Export constants
 export CELESTIAL_OBJECTS
