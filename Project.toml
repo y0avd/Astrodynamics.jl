@@ -1,19 +1,16 @@
 name = "Astrodynamics"
-
 uuid = "3ef73b0c-6d60-46a5-a738-1cbd0a6036e3"
-
 authors = ["Yoav Dekel"]
-
 version = "0.1.0"
 
 [deps]
-SPICE = "5bab7191-041a-5c2e-a744-024b9c3a5062"
-Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Rotations = "5c9b5ea0-8a7d-11e9-0c2a-0dbe84e78925"
+Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+Rotations = "6038ab10-8711-5258-84ad-4b1120ba62dc"
+SPICE = "5bab7191-041a-5c2e-a744-024b9c3a5062"
 
 [compat]
-julia = "1.6"
-SPICE = "0.2.4"
 Makie = "0.22"
-Rotations = "1" 
+Rotations = "1.7.1"
+SPICE = "0.2.4"
+julia = "1.6"
