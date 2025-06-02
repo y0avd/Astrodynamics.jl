@@ -175,6 +175,7 @@ This package requires the following Julia packages:
 - **Makie.jl**: High-performance interactive visualization package for scientific data and 3D graphics
   - *Note*: You'll need to install one of the Makie backends (GLMakie, CairoMakie, WGLMakie, or RPRMakie)
 - **LinearAlgebra**: Standard library for linear algebra operations (vectors, matrices, etc.)
+- **Rotations.jl**: 3D rotation parameterizations and transformations (used for handling rotation matrices, quaternions, and related operations)
 
 For more information about Makie backends, see the [Makie documentation](https://docs.makie.org/stable/).
 

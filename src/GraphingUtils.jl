@@ -35,3 +35,8 @@ end
 function graph_celestial_object(ax, body::CelestialObject, c = (0,0,0); sphere = true, img = :blue, n = 100)
     return surface!(ax, create_ellipsoid(c, sphere ? body.R : body.Rv, n = n)..., color = img, shading = NoShading, backlight = 1.5f0)
 end
+
+function update_celestial_object(surface, pos::AbstractArray{<:Real,1}, R::RotMatrix{3})
+    rotate!(surface, rotation_axis(R), rotation_angle(R))
+    translate!(surface, pos...)
+end

@@ -9,13 +9,21 @@ include("CelestialObjects.jl")
 include("GraphingUtils.jl")
 
 # Export functions
-export create_solar_system_sun, create_solar_system, et!, frame!
+export create_solar_system_sun, create_solar_system, set_et!, set_frame!
 
 # global variables
 export et, frame
 
 const et = Ref(0.0)
 const frame = Ref("J2000")
+
+function set_et!(et_value)
+    et[] = et_value
+end
+
+function set_frame!(frame_value)
+    frame[] = frame_value
+end
 
 function create_solar_system_sun()
     if !haskey(CELESTIAL_OBJECTS, "sun")
