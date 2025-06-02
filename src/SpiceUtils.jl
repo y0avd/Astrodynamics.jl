@@ -1,5 +1,5 @@
 # Export useful SPICE functions for convenience
-export utc2et, et2utc, spkezr, oscltx, bodvrd, furnsh
+export utc2et, et2utc, spkezr, oscltx, bodvrd, spkpos, pxform
 
 # Export functions
 export load_spice_kernels

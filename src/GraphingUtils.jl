@@ -32,6 +32,6 @@ function format_axis3(ax)
     ax.azimuth = pi/4
 end
 
-function graph_celestial_object(ax, o::CelestialObject, c=(0,0,0); sphere = true, img = :blue, n = 100)
-    surface!(ax, create_ellipsoid(c, sphere ? o.R : o.Rv, n = n)..., color = img, shading = NoShading, backlight = 1.5f0)
+function graph_celestial_object(ax, body::CelestialObject, c = (0,0,0); sphere = true, img = :blue, n = 100)
+    return surface!(ax, create_ellipsoid(c, sphere ? body.R : body.Rv, n = n)..., color = img, shading = NoShading, backlight = 1.5f0)
 end

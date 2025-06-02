@@ -1,6 +1,6 @@
 module Astrodynamics
 
-using SPICE, Makie, LinearAlgebra
+using SPICE, Makie, LinearAlgebra, Rotations
 
 # Include other source files
 include("Constants.jl")
@@ -9,7 +9,13 @@ include("CelestialObjects.jl")
 include("GraphingUtils.jl")
 
 # Export functions
-export create_solar_system_sun, create_solar_system
+export create_solar_system_sun, create_solar_system, et!, frame!
+
+# global variables
+export et, frame
+
+const et = Ref(0.0)
+const frame = Ref("J2000")
 
 function create_solar_system_sun()
     if !haskey(CELESTIAL_OBJECTS, "sun")
@@ -22,10 +28,11 @@ function create_solar_system_sun()
     return CELESTIAL_OBJECTS["sun"]
 end
 
-function create_solar_system(et = 0.0; frame = "J2000")
+function create_solar_system(et = et[]; frame = frame[])
     sun = create_solar_system_sun()
     
     planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
+    planets = [planet * "_barycenter" for planet in planets]
     for planet in planets
         if !haskey(CELESTIAL_OBJECTS, planet)
             @info "Creating celestial object for $planet..."

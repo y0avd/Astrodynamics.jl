@@ -30,10 +30,12 @@ mutable struct CelestialObject
     T::Float64      # Orbital period (0 if not elliptical)
 end
 
+
+
 # Global dictionary to store all celestial objects
 const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
 
-function create_celestial_object(name, primary_body, et = 0.0; frame = "J2000", update_existing = false)
+function create_celestial_object(name, primary_body; et = et[], frame = frame[], update_existing = false)
     # Check if object already exists
     if haskey(CELESTIAL_OBJECTS, name)
         if update_existing
@@ -65,4 +67,13 @@ function create_celestial_object(name, primary_body, et = 0.0; frame = "J2000", 
     # Store in global dictionary
     CELESTIAL_OBJECTS[name] = obj
     return obj
+end
+
+function get_distance(body::CelestialObject, center::CelestialObject, abcorr = "NONE"; et = et[], frame = frame[])
+    return spkpos(body.name, et, frame, abcorr, center.name)[1]
+end
+
+function get_rotation(body::CelestialObject; et = et[], to_frame = "J2000")
+    from_frame = "iau_" * body.name
+    return RotMatrix{3}(pxform(from_frame, to_frame, et))
 end
