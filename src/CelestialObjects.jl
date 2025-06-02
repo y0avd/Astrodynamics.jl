@@ -30,8 +30,6 @@ mutable struct CelestialObject
     T::Float64      # Orbital period (0 if not elliptical)
 end
 
-
-
 # Global dictionary to store all celestial objects
 const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
 

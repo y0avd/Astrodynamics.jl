@@ -36,7 +36,7 @@ function create_solar_system_sun()
     return CELESTIAL_OBJECTS["sun"]
 end
 
-function create_solar_system(et = et[]; frame = frame[])
+function create_solar_system()
     sun = create_solar_system_sun()
     
     planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
@@ -44,7 +44,7 @@ function create_solar_system(et = et[]; frame = frame[])
     for planet in planets
         if !haskey(CELESTIAL_OBJECTS, planet)
             @info "Creating celestial object for $planet..."
-            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet, sun, et; frame = frame)
+            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet, sun)
         end
     end
     
