@@ -43,7 +43,7 @@ function create_solar_system()
     for planet in planets
         if !haskey(CELESTIAL_OBJECTS, planet)
             @info "Creating celestial object for $planet..."
-            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet, sun)
+            CELESTIAL_OBJECTS[planet] = create_celestial_object(planet, sun, barycenter = true)
         end
     end
     
