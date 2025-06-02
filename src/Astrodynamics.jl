@@ -40,7 +40,6 @@ function create_solar_system()
     sun = create_solar_system_sun()
     
     planets = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"]
-    planets = [planet * "_barycenter" for planet in planets]
     for planet in planets
         if !haskey(CELESTIAL_OBJECTS, planet)
             @info "Creating celestial object for $planet..."

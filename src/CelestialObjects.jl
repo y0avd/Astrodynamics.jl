@@ -33,7 +33,7 @@ end
 # Global dictionary to store all celestial objects
 const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
 
-function create_celestial_object(name, primary_body; et = et[], frame = frame[], update_existing = false)
+function create_celestial_object(name, primary_body::CelestialObject; et = et[], frame = frame[], update_existing = false)
     # Check if object already exists
     if haskey(CELESTIAL_OBJECTS, name)
         if update_existing
