@@ -37,6 +37,6 @@ function graph_celestial_object(ax, body::CelestialObject, c = (0,0,0); sphere =
 end
 
 function update_celestial_object(surface, pos::AbstractArray{<:Real,1}, R::RotMatrix{3})
-    rotate!(surface, rotation_axis(R), rotation_angle(R))
-    translate!(surface, pos...)
+    Makie.rotate!(surface, rotation_axis(R), rotation_angle(R))
+    Makie.translate!(surface, pos...)
 end
