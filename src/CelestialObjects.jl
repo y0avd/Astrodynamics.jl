@@ -50,8 +50,8 @@ function create_celestial_object(name, primary_body; et = et[], frame = frame[],
     Rv = bodvrd(name, "RADII")
     R = sum(Rv) / 3
     
-    # Get orbital elements
-    state = spkezr(name, et, frame, "NONE", primary_body.name)
+    # Get orbital elements from object barycenter
+    state = spkezr(name * "_barycenter", et, frame, "NONE", primary_body.name)
     orb = oscltx(state[1], et, primary_body.μ)
     
     # Create the object
