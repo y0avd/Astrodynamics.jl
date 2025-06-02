@@ -33,7 +33,7 @@ end
 # Global dictionary to store all celestial objects
 const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
 
-function create_celestial_object(name, primary_body::CelestialObject; et = et[], frame = frame[], update_existing = false)
+function create_celestial_object(name, primary_body::CelestialObject; et = et[], frame = frame[], update_existing = false, barycenter = false)
     # Check if object already exists
     if haskey(CELESTIAL_OBJECTS, name)
         if update_existing
@@ -50,8 +50,11 @@ function create_celestial_object(name, primary_body::CelestialObject; et = et[],
     Rv = bodvrd(name, "RADII")
     R = sum(Rv) / 3
     
-    # Get orbital elements from object barycenter
-    state = spkezr(name * "_barycenter", et, frame, "NONE", primary_body.name)
+    # Get orbital elements
+
+    name = barycenter ? name * "_barycenter" : name
+
+    state = spkezr(name, et, frame, "NONE", primary_body.name)
     orb = oscltx(state[1], et, primary_body.μ)
     
     # Create the object
