@@ -34,6 +34,13 @@ end
 const CELESTIAL_OBJECTS = Dict{String, CelestialObject}()
 
 function create_celestial_object(name, primary_body::CelestialObject; et = et[], frame = frame[], update_existing = false, barycenter = false)
+    # Get body properties
+    μ = bodvrd(name, "GM")[1]
+    Rv = bodvrd(name, "RADII")
+    R = sum(Rv) / 3
+
+    name = barycenter ? name * "_barycenter" : name
+
     # Check if object already exists
     if haskey(CELESTIAL_OBJECTS, name)
         if update_existing
@@ -45,15 +52,8 @@ function create_celestial_object(name, primary_body::CelestialObject; et = et[],
         end
     end
     
-    # Get body properties
-    μ = bodvrd(name, "GM")[1]
-    Rv = bodvrd(name, "RADII")
-    R = sum(Rv) / 3
     
     # Get orbital elements
-
-    name = barycenter ? name * "_barycenter" : name
-
     state = spkezr(name, et, frame, "NONE", primary_body.name)
     orb = oscltx(state[1], et, primary_body.μ)
     
